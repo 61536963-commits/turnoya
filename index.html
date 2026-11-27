@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#E8F0FF">
+<title>TurnoYa</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--n:#0B1F4D;--g:linear-gradient(90deg,#1F6BFF,#6C3BFF);--b:#1F6BFF;--m:#4A5A82;--bg:#E8F0FF}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#cfdcf7;font-family:Inter,system-ui,sans-serif;color:var(--n)}
+body{display:flex;align-items:center;justify-content:center}
+#app{position:relative;width:100%;max-width:400px;height:100%;max-height:820px;background:var(--bg);overflow:hidden;display:flex;flex-direction:column}
+@media(min-width:500px){#app{border-radius:28px;box-shadow:0 20px 60px #1f3a8a40;height:800px}}
+#app:before{content:"";position:absolute;right:-90px;top:-150px;width:340px;height:340px;border-radius:50%;background:#d6e4ff;z-index:0}
+.sc{position:relative;z-index:1;flex:1;overflow-y:auto;padding:calc(30px + env(safe-area-inset-top,0px)) 20px 20px;display:flex;flex-direction:column}
+.h{font-family:'Space Grotesk',sans-serif}
+.hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.logo{display:flex;align-items:center;gap:6px;font:700 22px 'Space Grotesk';letter-spacing:-.5px}.logo b{color:var(--b)}
+.pill{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #cdd8f2;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:500}
+.pill i{width:7px;height:7px;border-radius:50%;background:#12a066}
+h1{font:700 28px/1.15 'Space Grotesk';margin-bottom:8px}
+h2{font:700 18px 'Space Grotesk'}
+p.s{color:var(--m);font-size:14px;line-height:1.4}
+.card{background:#fff;border-radius:20px;padding:17px;margin-bottom:14px;box-shadow:0 6px 18px #1f3a8a1f;border:1px solid #fff}
+.btn{border:0;border-radius:16px;padding:13px 22px;font:600 15px Inter;color:#fff;background:var(--g);cursor:pointer;box-shadow:0 8px 18px #3b4dff40;width:100%}
+.btn.sm{width:auto;padding:12px 20px}.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.o{background:#fff;color:var(--b);border:2px solid var(--b);box-shadow:none}
+.btn.d{background:#d93a4a;box-shadow:none}
+.lk{background:none;border:0;color:var(--b);font:600 14px Inter;cursor:pointer;padding:10px;text-align:center;width:100%}
+.tag{display:inline-block;font-size:12px;font-weight:500;padding:4px 9px;border-radius:8px;border:1px solid}
+.w{background:#fff3e0;border-color:#e8a33d;color:#b45f06}.a{background:#e6f7ef;border-color:#2baa6f;color:#0f7a4a}
+.srch{display:flex;gap:10px;align-items:center;background:#fff;border-radius:18px;padding:0 16px;height:52px;box-shadow:0 4px 14px #1f3a8a1a;margin-bottom:14px}
+.srch input{border:0;outline:0;flex:1;font:400 15px Inter;color:var(--n);background:none}
+.chips{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;flex-shrink:0}
+.chip{border:1px solid #cdd8f2;background:#fff;border-radius:18px;padding:8px 14px;font:500 13px Inter;white-space:nowrap;cursor:pointer;color:var(--n)}
+.chip.on{background:var(--g);color:#fff;border:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.nav{position:relative;z-index:2;display:flex;background:#fff;border-top:1px solid #dbe4fa;padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px))}
+.nav button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;font:500 12px Inter;color:var(--m);cursor:pointer}
+.nav button.on{color:var(--b);font-weight:600}
+.fld{margin-bottom:12px;flex:1}.fld label{display:block;font-size:13px;font-weight:500;margin-bottom:5px}
+.fld input{width:100%;height:46px;border-radius:14px;border:1.5px solid #cdd8f2;padding:0 14px;font:400 15px Inter;background:#fff;color:var(--n);outline:0}
+.fld input:focus{border-color:var(--b)}.fld small{color:#d93a4a;font-size:12px}
+.stats{display:flex;gap:8px}.stats div{flex:1;background:#eef3ff;border-radius:14px;padding:10px 4px;text-align:center;font-size:12px;color:var(--m)}
+.stats b{display:block;font:700 18px 'Space Grotesk';color:var(--n)}
+.ctr{text-align:center}
+.ov{position:absolute;inset:0;background:#0b1f4d99;z-index:5;display:flex;align-items:center;justify-content:center;padding:24px}
+.ov .card{width:100%;margin:0;text-align:center}
+.tg{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);background:var(--n);color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;z-index:9;white-space:nowrap}
+.ok{width:96px;height:96px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 10px 30px #3b4dff55}
+.oval{width:190px;height:250px;border-radius:50%;border:3px dashed var(--b);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;background:#fff8;color:var(--b)}
+.pin{display:flex;gap:12px;justify-content:center;margin:14px 0}.pin i{width:16px;height:16px;border-radius:50%;border:2px solid var(--b)}.pin i.on{background:var(--b)}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}.kp button{height:46px;border-radius:14px;border:0;background:#fff;font:600 20px 'Space Grotesk';color:var(--n);cursor:pointer;box-shadow:0 3px 8px #1f3a8a1a}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.slot{border:1px solid #cdd8f2;background:#fff;border-radius:12px;padding:10px 0;font:500 13px Inter;color:var(--n);cursor:pointer}
+.slot.on{background:var(--g);color:#fff;border:0}
+.chat{display:flex;flex-direction:column;gap:10px;margin:14px 0;max-height:330px;overflow-y:auto}
+.msg{max-width:85%;padding:12px 14px;border-radius:18px;font-size:14px;line-height:1.4}
+.ia{background:#fff;color:var(--n);border-bottom-left-radius:6px;box-shadow:0 4px 12px #1f3a8a14}
+.yo{background:var(--g);color:#fff;align-self:flex-end;border-bottom-right-radius:6px}
+.mic{width:86px;height:86px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;margin:14px auto;box-shadow:0 10px 26px #3b4dff55;cursor:pointer;border:0}
+.mic.grabando{animation:pulso 1.2s infinite}
+@keyframes pulso{0%{box-shadow:0 0 0 0 #3b4dff66}70%{box-shadow:0 0 0 22px #3b4dff00}100%{box-shadow:0 0 0 0 #3b4dff00}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const $a=document.getElementById('app');
+const T=[
+ {c:'A',n:'Renovación de DNI',e:'Oficina de identidad',k:'Identidad',w:1,m:35,t:12},
+ {c:'B',n:'Partidas y actas',e:'Registro civil',k:'Identidad',w:0,m:15,t:30},
+ {c:'C',n:'Licencia de funcionamiento',e:'Municipalidad',k:'Municipal',w:1,m:25,t:40},
+ {c:'D',n:'Constancia de estudios',e:'UGEL',k:'Educación',w:0,m:20,t:20}
+];
+const DN=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],MN=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const SL=['08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','14:00','14:30','15:00','15:30'];
+const pad=n=>String(n).padStart(2,'0'),iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),dl=d=>DN[d.getDay()]+' '+d.getDate()+' '+MN[d.getMonth()];
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function days(){const r=[new Date()];let x=new Date();while(r.length<4){x=new Date(x.getFullYear(),x.getMonth(),x.getDate()+1);if(x.getDay()%6)r.push(x)}return r}
+const D0=()=>({scr:'splash',user:null,verif:false,pin:null,pe:'',pm:'set1',p1:'',fails:0,lock:0,turns:[],hist:[],av:[],f:'Todos',q:'',cid:null,sel:null,ag:{c:'A',d:0,s:null},seq:{},cnt:0,er:{},tg:'',big:false,avOn:true,dia:0,chat:[],paso:0,datosLlamada:{},grabando:false,textoEscuchado:''});
+let S=D0();
+const K=['user','verif','pin','turns','hist','av','f','q','big','avOn','seq','cnt'];
+try{const l=JSON.parse(localStorage.getItem('ty5')||'null');if(l)K.forEach(k=>{if(l[k]!==undefined)S[k]=l[k]})}catch(e){}
+const save=()=>{try{const o={};K.forEach(k=>o[k]=S[k]);localStorage.setItem('ty5',JSON.stringify(o))}catch(e){}};
+const I={home:'<path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/>',tk:'<path d="M3 7h18v3a2 2 0 000 4v3H3v-3a2 2 0 000-4z"/><path d="M14 7v10" stroke-dasharray="2 2"/>',bell:'<path d="M6 17V11a6 6 0 0112 0v6l2 2H4zM10 21h4"/>',us:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',se:'<circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/>',lk:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/>'};
+const ic=(k,s=24,f='none')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="${f}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
+const logo=`<div class="logo"><svg width="34" height="28" viewBox="0 0 34 28"><path d="M5 0h24a5 5 0 015 5v18a5 5 0 01-5 5H5a5 5 0 01-5-5V5a5 5 0 015-5z" fill="#1F6BFF"/><path d="M9 14l5 5 10-10" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="5" r="2.5" fill="#FFD166"/></svg>Turno<b>Ya</b></div>`;
+const hd=b=>`<div class="hd"><div style="display:flex;align-items:center">${b?`<button class="lk" style="width:auto;padding:0 8px 0 0;font-size:22px" data-go="${b}">‹</button>`:''}${logo}</div><div class="pill"><i></i>Fila en vivo</div></div>`;
+const nav=a=>`<div class="nav">${[['home','Inicio','home'],['tk','Mis turnos','mis'],['bell','Avisos','avisos'],['us','Perfil','perfil']].map(([i,l,s])=>`<button class="${a==s?'on':''}" data-go="${s}"><span>${ic(i)}</span>${l}</button>`).join('')}</div>`;
+const pv=m=>{S.av.unshift(m);save()};
+const toast=m=>{S.tg=m;render();setTimeout(()=>{S.tg='';render()},2300)};
+const val=ids=>{const o={};ids.forEach(i=>{const e=document.getElementById(i);o[i]=e?e.value.trim():''});return o};
+const fl=(id,l,p,v='',ty='text',ml='')=>`<div class="fld"><label for="${id}">${l}</label><input id="${id}" type="${ty}" placeholder="${p}" value="${esc(v)}" ${ml?`maxlength="${ml}"`:''} inputmode="${id=='dni'||id=='cel'?'numeric':'text'}">${S.er[id]?`<small>${S.er[id]}</small>`:''}</div>`;
+const ok48=`<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>`;
+const lista=()=>{const q=S.q.toLowerCase();return T.filter(t=>(S.f=='Todos'||t.k==S.f)&&(t.n+t.e).toLowerCase().includes(q)).map(t=>`<div class="card"><div class="row"><div><h2>${t.n}</h2><p class="s" style="margin-top:4px">${t.e}</p></div><span class="tag ${t.w?'w':'a'}">${t.w?t.w+' en espera':'Disponible'}</span></div><div class="row" style="margin-top:14px"><span class="s">~${t.m} min</span><button class="btn sm" data-act="take" data-a="${t.c}">Sacar turno</button></div></div>`).join('')||'<p class="s ctr" style="margin-top:30px">No encontramos trámites con esa búsqueda.</p>'};
+const V={
+splash:()=>`<div class="sc ctr" style="justify-content:center"><div style="transform:scale(1.7);margin-bottom:60px">${logo}</div><p class="s" style="font-size:16px;margin-bottom:40px">Tu turno, sin hacer cola</p><button class="btn sm" data-go="bien">Comenzar</button></div>`,
+bien:()=>`<div class="sc">${hd()}<h1>Tu turno,<br>sin hacer cola</h1><p class="s">Elige tu trámite, saca tu número y te avisamos cuándo ir.</p><div style="display:flex;gap:8px;margin:18px 0;flex-wrap:wrap"><span class="tag a">Sin colas</span><span class="tag a">Avisos por SMS</span><span class="tag a">Llamada con IA</span></div><div class="card"><h2>¿Qué trámite necesitas?</h2><div class="srch">${ic('se',22)}<input id="q" placeholder="Escribe: DNI, partida, licencia…" value="${esc(S.q)}"></div><div id="lista">${lista()}</div></div><div class="card ctr"><p class="s"><b>¿No puedes usar la app?</b></p><p class="s" style="font-size:12px">Llama al <b>181</b> y una asistente virtual te ayudará a sacar tu turno por llamada.</p><button class="btn o" style="margin-top:10px" data-go="llamada">Llamar a la asistente IA</button></div><div style="flex:1"></div><button class="btn" data-go="datos">Sacar mi turno</button></div>`,
+datos:()=>`<div class="sc">${hd('bien')}<h1>Necesitamos<br>2 datos</h1><p class="s">Solo tu DNI y celular para crear y avisarte de tu turno.</p><div class="card">${fl('dni','Tu DNI','8 dígitos','','text',8)}${fl('cel','Tu celular','9 dígitos','','text',9)}<button class="btn" data-act="datos">Continuar</button></div><p class="s ctr" style="font-size:12px">Usamos tus datos solo para gestionar tu turno y enviarte avisos.</p></div>`,
+verif:()=>`<div class="sc ctr">${hd('datos')}<h1>¿Eres tú?<br>Verifica tu identidad</h1><p class="s">Comprobaremos que eres tú para que nadie pueda usar tu DNI o quitarte tu turno.</p><div class="oval">${ic('us',90)}</div><div><span class="tag a">Buena luz</span> <span class="tag a">De frente</span> <span class="tag a">Sin lentes</span></div><div class="card" style="margin-top:16px"><p class="s" style="font-size:12px">Tu foto solo se usa para comprobar tu identidad. No se guarda ni se comparte.</p></div><div style="flex:1"></div><button class="btn" data-act="vstart">Iniciar verificación</button><button class="lk" data-act="pin">Verificar después</button></div>`,
+vcam:()=>`<div class="sc ctr">${hd('verif')}<h1>Coloca tu rostro<br>dentro del círculo</h1><div class="oval" style="border-style:solid;overflow:hidden">${ic('us',90)}</div><p class="s">Estamos comprobando tu rostro…</p><div style="height:8px;background:#dde5ff;border-radius:4px;margin:18px 40px"><div style="height:100%;width:70%;background:var(--g);border-radius:4px"></div></div><button class="btn" data-act="vok">Ya está listo</button><button class="lk" data-act="verif">Reintentar</button></div>`,
+vok:()=>`<div class="sc ctr">${hd('datos')}<div class="ok">${ok48}</div><h1>¡Listo!<br>Confirmamos que eres tú</h1><p class="s">Ahora puedes sacar turnos con más seguridad.</p><div class="card"><div class="row"><span class="s">Rostro</span><span class="tag a">Correcto</span></div><div class="row" style="margin-top:10px"><span class="s">DNI</span><span class="tag a">Correcto</span></div><div class="row" style="margin-top:10px"><span class="s">Celular</span><span class="tag a">Registrado</span></div></div><div style="flex:1"></div><button class="btn" data-act="pin">Continuar</button></div>`,
+pin:()=>{const X={set1:['Crea tu PIN','Usa 6 números que solo tú recuerdes.'],set2:['Confirma tu PIN','Vuelve a escribir tus 6 números.'],sms:['Código SMS','Enviamos un código a tu celular. En la demo usa 123456.'],ver:['Ingresa tu PIN','Para continuar, valida que eres tú.']}[S.pm];return`<div class="sc ctr">${hd('verif')}<h1>${X[0]}</h1><p class="s">${X[1]}</p><div class="pin">${[0,1,2,3,4,5].map(i=>`<i class="${i<S.pe.length?'on':''}"></i>`).join('')}</div>${S.er.pin?`<p class="ctr" style="color:#d93a4a;font-size:13px">${S.er.pin}</p>`:''}<div class="kp">${[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(k=>k===''?'<span></span>':`<button data-act="key" data-a="${k}">${k}</button>`).join('')}</div>${S.pm=='ver'?`<button class="btn" data-act="pinok">Ingresar</button><button class="lk" data-act="sms">Olvidé mi PIN</button>`:''}</div>`},
+home:()=>`<div class="sc">${hd()}<h1>Tu turno,<br>sin hacer cola</h1><div class="srch">${ic('se',22)}<input id="q" placeholder="Busca un trámite o entidad" value="${esc(S.q)}"></div><div class="chips">${['Todos','Identidad','Municipal','Educación'].map(c=>`<button class="chip ${S.f==c?'on':''}" data-act="f" data-a="${c}">${c}</button>`).join('')}</div>${lista()}<div class="card ctr"><p class="s"><b>¿Prefieres hacerlo por llamada?</b></p><button class="btn o" style="margin-top:10px" data-go="llamada">Llamar a la asistente IA</button></div></div>${nav('home')}`,
+agenda:()=>{const t=T.find(x=>x.c==S.ag.c);return`<div class="sc">${hd('home')}<h1 style="font-size:24px">${t.n}</h1><p class="s">${t.e} · Elige hoy o reserva para otro día.</p><div class="card"><h2>¿Cuándo quieres ir?</h2><div class="chips">${['Hoy, en la fila','Otro día, con hora'].map((x,i)=>`<button class="chip ${S.dia==i?'on':''}" data-act="dia" data-a="${i}">${x}</button>`).join('')}</div>${S.dia==0?`<div class="stats"><div><b>${t.w}</b>Antes de ti</div><div><b>${t.t} min</b>Tiempo aprox.</div></div><p class="s" style="font-size:12px;margin-top:10px">Te avisaremos por SMS cuando se acerque tu turno.</p>`:`<p class="s" style="font-weight:600;margin:10px 0">Elige una hora</p><div class="slots">${SL.map(h=>`<button class="slot ${S.ag.s==h?'on':''}" data-act="slot" data-a="${h}">${h}</button>`).join('')}</div>`}</div><div style="flex:1"></div><button class="btn" data-act="book" ${S.dia==1&&!S.ag.s?'disabled':''}>${S.dia==0?'Sacar mi turno ahora':S.ag.s?'Reservar mi cita':'Elige una hora'}</button></div>`},
+conf:()=>{const t=S.turns.find(x=>x.id==S.sel);return`<div class="sc ctr">${hd('home')}<div class="ok">${ok48}</div><h1>¡Tu turno está<br>reservado!</h1><p class="s">Guarda tu número. También te lo enviaremos por SMS.</p><div class="card"><span class="s">Tu número</span><div class="h" style="font-size:48px;font-weight:700">${t.id}</div><div class="stats" style="margin-top:10px"><div><b>${t.ah}</b>Antes de ti</div><div><b>${t.t} min</b>Tiempo aprox.</div></div><p class="s" style="margin-top:12px"><b>${t.n}</b><br>${t.e}</p></div><div style="flex:1"></div><button class="btn" data-act="ver" data-a="${t.id}">Ver mi turno</button><button class="lk" data-go="home">Volver al inicio</button></div>`},
+mis:()=>`<div class="sc">${hd()}<h1>Mis turnos</h1><p class="s" style="margin-bottom:12px;font-weight:600">Activos</p>${S.turns.map(t=>`<div class="card" data-act="ver" data-a="${t.id}" style="cursor:pointer"><div class="row"><h2 style="font-size:16px">${t.n}</h2><b class="h">${t.id}</b></div><div style="margin-top:10px"><span class="tag ${t.ah<=0?'a':'w'}">${t.ah<=0?'¡Te toca!':'En espera'}</span></div><p class="s" style="margin-top:6px">${t.ah} antes de ti · ${t.t} min</p></div>`).join('')||'<p class="s">No tienes turnos activos. Saca uno desde Inicio.</p>'}<p class="s" style="margin:8px 0 12px;font-weight:600">Anteriores</p>${S.hist.map(h=>`<div class="card"><div class="row"><h2 style="font-size:16px">${esc(h.n)}</h2><b class="h" style="color:var(--m)">${esc(h.c)}</b></div><div style="margin-top:10px"><span class="tag a">Atendido</span></div></div>`).join('')||'<p class="s">Aún no tienes turnos atendidos.</p>'}</div>${nav('mis')}`,
+det:()=>{const t=S.turns.find(x=>x.id==S.sel);if(!t)return V.mis();return`<div class="sc">${hd('mis')}<h1 style="font-size:24px">${t.n}</h1><p class="s">${t.e}</p><div class="card ctr"><span class="s">Tu número</span><div class="h" style="font-size:44px;font-weight:700">${t.id}</div><div class="stats" style="margin-top:10px"><div><b>${t.ah}</b>Antes de ti</div><div><b>${t.t} min</b>Tiempo aprox.</div></div><div style="margin:14px auto;background:#fff;border:8px solid #fff;border-radius:8px;box-shadow:0 0 0 1px #e3ebff;width:170px;height:170px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--m)">Código QR<br>opcional</div><p class="s" style="font-size:12px">Si no puedes usar el QR, muestra tu número o tu DNI al personal.</p></div><button class="btn" data-act="arr" data-a="${t.id}">Confirmar que llegué</button><button class="btn o" style="margin-top:10px" data-act="askc" data-a="${t.id}">¿Ya no puedes ir? Cancelar turno</button></div>${nav('mis')}${S.cid?`<div class="ov"><div class="card"><h2>¿Cancelar tu turno ${S.cid}?</h2><p class="s">Perderás tu lugar. Otra persona podrá tomarlo.</p><button class="btn d" style="margin:16px 0 4px" data-act="cancel">Sí, cancelar turno</button><button class="lk" data-act="back">No, volver</button></div></div>`:''}`},
+canc:()=>`<div class="sc ctr">${hd('home')}<div class="ok" style="background:#e3ebff;box-shadow:none;color:var(--b)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 6l12 12M18 6L6 18"/></svg></div><h1>Tu turno fue cancelado</h1><p class="s">Tu lugar quedó libre. Puedes sacar otro turno cuando quieras.</p><div style="flex:1"></div><button class="btn" data-go="home">Buscar otro trámite</button></div>`,
+llamada:()=>{const sugerencias={0:['Quiero renovar mi DNI','Quiero una partida de nacimiento','Quiero una licencia'],1:['Para hoy','Para mañana'],2:['Mi DNI es 72345678'],3:['123456'],4:['Sí, confirmar'],5:['Ver mi turno','Gracias']}[S.paso]||[];return`<div class="sc">${hd('home')}<h1>Asistente IA<br>por llamada</h1><p class="s">Toca el micrófono y habla en español. También puedes tocar una opción si el micrófono no funciona.</p><div class="card"><div class="row"><b>Asistente TurnoYa</b><span class="tag a">En llamada</span></div><div class="chat">${S.chat.map(m=>`<div class="msg ${m.quien=='ia'?'ia':'yo'}">${esc(m.texto)}</div>`).join('')}</div>${S.textoEscuchado?`<p class="s" style="font-size:12px;margin-top:8px">Escuché: <b>${esc(S.textoEscuchado)}</b></p>`:''}</div><button class="mic ${S.grabando?'grabando':''}" data-act="micro">🎙️</button><p class="ctr s">${S.grabando?'Te estoy escuchando… habla con calma.':'Toca el micrófono para hablar'}</p><div class="chips" style="justify-content:center">${sugerencias.map(x=>`<button class="chip" data-act="decir" data-a="${x}">${x}</button>`).join('')}</div><div style="flex:1"></div><button class="btn d" data-act="colgar">Finalizar llamada</button></div>`},
+llamadaLista:()=>{const t=S.turns.find(x=>x.id==S.sel);return`<div class="sc ctr">${hd('home')}<div class="ok">${ok48}</div><h1>¡Tu turno fue<br>reservado por llamada!</h1><p class="s">La asistente IA reservó tu turno y te envió un SMS.</p><div class="card"><span class="s">Tu número</span><div class="h" style="font-size:48px;font-weight:700">${t.id}</div><div class="stats" style="margin-top:10px"><div><b>${t.ah}</b>Antes de ti</div><div><b>${t.t} min</b>Tiempo aprox.</div></div><p class="s" style="margin-top:12px"><b>${t.n}</b><br>${t.e}</p></div><div style="flex:1"></div><button class="btn" data-act="ver" data-a="${t.id}">Ver mi turno</button><button class="lk" data-go="home">Volver al inicio</button></div>`},
+avisos:()=>`<div class="sc">${hd()}<div class="row"><h1>Avisos</h1>${S.av.length?`<button class="lk" style="width:auto" data-act="clr">Limpiar</button>`:''}</div>${S.av.length?S.av.map(a=>`<div class="card"><p style="font-size:14px">${esc(a)}</p></div>`).join(''):'<div class="card ctr"><h2>Todo tranquilo por ahora</h2><p class="s" style="margin-top:8px">Cuando reserves un turno, aquí te avisaremos cuántas personas faltan y cuándo te toca.</p></div>'}<div style="flex:1"></div></div>${nav('avisos')}`,
+perfil:()=>`<div class="sc">${hd()}<h1>Tu perfil</h1><div class="card"><div class="row"><div><h2 style="font-size:17px">${esc(S.user?.dni||'Sin DNI')}</h2><p class="s">Celular: ${esc(S.user?.cel||'—')}</p></div><span class="tag ${S.verif?'a':'w'}">${S.verif?'Identidad verificada':'Sin verificar'}</span></div></div><div class="card"><p><b>¿Para qué usamos tus datos?</b></p><p class="s" style="font-size:12px">Usamos tu DNI y celular para crear turnos, comprobar tu identidad y enviarte avisos. No vendemos ni compartimos tus datos.</p></div><div class="stats" style="margin-bottom:14px"><div><b>${S.cnt}</b>Turnos sacados</div><div><b>${S.turns.length}</b>Activos</div><div><b>${S.hist.length}</b>Atendidos</div></div><button class="btn o" data-act="out">Cerrar sesión</button><button class="lk" style="color:#d93a4a" data-act="wipe">Eliminar mis datos</button></div>${nav('perfil')}`};
+function render(){$a.innerHTML=(V[S.scr]||V.splash)();if(S.tg){const d=document.createElement('div');d.className='tg';d.textContent=S.tg;$a.appendChild(d)}const c=$a.querySelector('.chat');if(c)c.scrollTop=c.scrollHeight}
+function go(s){S.scr=s;S.er={};render();const sc=$a.querySelector('.sc');sc&&(sc.scrollTop=0)}
+function hablarIA(texto){S.chat.push({quien:'ia',texto});render();setTimeout(()=>{const c=$a.querySelector('.chat');c&&(c.scrollTop=c.scrollHeight)},60);decir(texto)}
+function decir(texto){try{const u=new SpeechSynthesisUtterance(texto);u.lang='es-PE';u.rate=.95;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function responder(texto){S.chat.push({quien:'yo',texto});S.textoEscuchado=texto;render();setTimeout(()=>{const c=$a.querySelector('.chat');c&&(c.scrollTop=c.scrollHeight)},60);procesarLlamada(texto)}
+function iniciarLlamada(){S.chat=[];S.paso=0;S.datosLlamada={};S.textoEscuchado='';go('llamada');setTimeout(()=>hablarIA('Hola, bienvenido a TurnoYa. Soy tu asistente virtual. ¿Qué trámite necesitas hacer?'),600)}
+function procesarLlamada(texto){
+ const t=texto.toLowerCase().replace(/[áéíóú]/g,m=>({'á':'a','é':'e','í':'i','ó':'o','ú':'u'}[m]));
+ if(S.paso==0){
+  if(t.includes('dni')||t.includes('documento')){S.datosLlamada.tramite='A';S.paso=1;hablarIA('Perfecto. ¿Quieres un turno para hoy o para otro día?')}
+  else if(t.includes('partida')||t.includes('acta')||t.includes('nacimiento')){S.datosLlamada.tramite='B';S.paso=1;hablarIA('Perfecto. ¿Quieres un turno para hoy o para otro día?')}
+  else if(t.includes('licencia')){S.datosLlamada.tramite='C';S.paso=1;hablarIA('Perfecto. ¿Quieres un turno para hoy o para otro día?')}
+  else if(t.includes('constancia')||t.includes('estudios')){S.datosLlamada.tramite='D';S.paso=1;hablarIA('Perfecto. ¿Quieres un turno para hoy o para otro día?')}
+  else hablarIA('No entendí. Puedes decir: “quiero renovar mi DNI”, “quiero una partida” o “quiero una licencia”.')
+ }
+ else if(S.paso==1){
+  if(t.includes('hoy')){S.datosLlamada.dia='hoy';S.paso=2;hablarIA('Para proteger tu turno, dime tu DNI, por favor.')}
+  else if(t.includes('manana')||t.includes('otro dia')||t.includes('otro')){S.datosLlamada.dia='manana';S.paso=2;hablarIA('Tenemos disponible mañana a las 10:00 a. m. Para proteger tu turno, dime tu DNI, por favor.')}
+  else hablarIA('¿Quieres un turno para hoy o para mañana?')
+ }
+ else if(S.paso==2){
+  const digitos=texto.replace(/\D/g,'');
+  if(digitos.length>=8){S.datosLlamada.dni=digitos.slice(-8);S.paso=3;hablarIA('Gracias. Te envié un código de 6 dígitos a tu celular. En esta demo, el código es 123456. Dímelo cuando lo recibas.')}
+  else hablarIA('No escuché bien. Dime tus 8 dígitos de DNI, por favor.')
+ }
+ else if(S.paso==3){
+  const digitos=texto.replace(/\D/g,'');
+  if(digitos.includes('123456')){S.paso=4;const tr=T.find(x=>x.c==S.datosLlamada.tramite);hablarIA(`Tu identidad fue verificada. Voy a reservar ${tr.n} ${S.datosLlamada.dia=='hoy'?'para hoy':'para mañana a las 10:00 a. m.'}. ¿Confirmas?`)}
+  else hablarIA('El código no coincide. Inténtalo otra vez.')
+ }
+ else if(S.paso==4){
+  if(t.includes('si')||t.includes('confirmar')||t.includes('ok')||t.includes('vale')){crearTurnoIA();S.paso=5;hablarIA('Listo. Tu turno fue reservado y te envié un SMS con el número, la sede y la hora. ¿Quieres ver tu turno?')}
+  else hablarIA('No confirmaste. ¿Quieres que reserve el turno?')
+ }
+ else if(S.paso==5){
+  if(t.includes('ver')){go('llamadaLista');return}
+  if(t.includes('gracias')||t.includes('no')||t.includes('chau')){hablarIA('Gracias por usar TurnoYa. Que tengas un buen día.');setTimeout(()=>go('home'),1800);return}
+  hablarIA('Puedes decir “ver mi turno” o “gracias”.')
+ }
+}
+function crearTurnoIA(){
+ const t=T.find(x=>x.c==S.datosLlamada.tramite);
+ S.seq[t.c]=(S.seq[t.c]||100)+1;S.cnt++;
+ const id=t.c+'-'+S.seq[t.c];
+ S.turns.push({id,n:t.n,e:t.e,ah:t.w,t:t.t});
+ S.sel=id;
+ S.user={dni:S.datosLlamada.dni,cel:S.user?.cel||'999999999'};
+ S.verif=true;
+ pv(`La asistente IA reservó ${t.n}. Tu número es ${id}. Te enviamos un SMS de confirmación.`);
+ save();
+}
+let reconocimiento=null;
+function escuchar(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){toast('Tu navegador no permite escuchar por voz. Usa Chrome o toca una opción');return}
+ if(reconocimiento){try{reconocimiento.stop()}catch(e){};reconocimiento=null;S.grabando=false;render();return}
+ reconocimiento=new SR();
+ reconocimiento.lang='es-PE';
+ reconocimiento.interimResults=true;
+ reconocimiento.continuous=false;
+ reconocimiento.maxAlternatives=1;
+ S.grabando=true;S.textoEscuchado='';render();
+ reconocimiento.onresult=e=>{
+  let texto='';
+  for(let i=e.resultIndex;i<e.results.length;i++)texto+=e.results[i][0].transcript;
+  S.textoEscuchado=texto;render();
+  if(e.results[e.results.length-1].isFinal){
+   S.grabando=false;render();
+   const final=texto.trim();
+   if(final)responder(final);
+  }
+ };
+ reconocimiento.onerror=e=>{
+  S.grabando=false;render();
+  toast(e.error=='not-allowed'?'Permite el micrófono en tu navegador':'No pude escucharte. Acércate al micrófono e intenta otra vez');
+ };
+ reconocimiento.onend=()=>{S.grabando=false;render()};
+ try{reconocimiento.start()}catch(e){S.grabando=false;render();toast('No pude iniciar el micrófono')}
+}
+const A={
+datos:()=>{const v=val(['dni','cel']),e={};if(!/^\d{8}$/.test(v.dni))e.dni='Escribe 8 dígitos';if(!/^9\d{8}$/.test(v.cel))e.cel='Escribe 9 dígitos que empiecen con 9';if(Object.keys(e).length){S.er=e;render();return}S.user={dni:v.dni,cel:v.cel};save();pv('Recibimos tu DNI. Verifica tu identidad para proteger tus turnos.');go('verif')},
+vstart:()=>go('vcam'),vok:()=>{S.verif=true;save();pv('Verificaste tu identidad. Tu cuenta está protegida.');go('vok')},
+pin:()=>{S.pm=S.pin?'ver':'set1';S.pe='';S.er={};go('pin')},
+key:a=>{if(a=='⌫')S.pe=S.pe.slice(0,-1);else if(S.pe.length<6)S.pe+=a;S.er={};render();if(S.pe.length==6&&S.pm!='ver')A.pinok()},
+pinok:()=>{const p=S.pe,m=S.pm;if(m=='set1'){S.p1=p;S.pe='';S.pm='set2';render()}else if(m=='set2'){if(p==S.p1){S.pin=p;S.fails=0;S.lock=0;save();pv('Creaste tu PIN. Tu cuenta está protegida.');go('home');toast('Tu PIN fue guardado')}else{S.pe='';S.pm='set1';S.er={pin:'Los PIN no coinciden. Inténtalo otra vez.'};render()}}else if(m=='sms'){if(p=='123456'){S.pm='set1';S.pe='';render();toast('Código correcto. Crea un PIN nuevo')}else{S.pe='';S.er={pin:'Código incorrecto'};render()}}else{if(p==S.pin){S.fails=0;save();go('home')}else{S.fails++;S.pe='';if(S.fails>=5){S.lock=Date.now()+15*60*1000;toast('Por seguridad, esperaremos 15 minutos')}else{S.er={pin:'PIN incorrecto. Te quedan '+(5-S.fails)+' intentos'};render()}}}},
+sms:()=>{S.pm='sms';S.pe='';S.er={};render()},
+f:a=>{S.f=a;render()},
+take:a=>{if(!S.user){toast('Primero ingresa tu DNI y celular');setTimeout(()=>go('datos'),1100);return}if(!S.verif){toast('Verifica tu identidad para proteger tu turno');setTimeout(()=>go('verif'),1100);return}S.ag={c:a,d:0,s:null};S.dia=0;go('agenda')},
+dia:a=>{S.dia=+a;S.ag.s=null;render()},slot:a=>{S.ag.s=a;render()},
+book:()=>{const t=T.find(x=>x.c==S.ag.c);if(S.dia==1&&!S.ag.s){toast('Elige una hora');return}S.seq[t.c]=(S.seq[t.c]||100)+1;S.cnt++;const id=t.c+'-'+S.seq[t.c];S.turns.push({id,n:t.n,e:t.e,ah:t.w,t:t.t});S.sel=id;pv(S.dia==0?`Reservaste ${t.n}. Tu número es ${id}. Faltan ${t.w} personas.`:`Reservaste ${t.n} para ${S.ag.s}. Tu número es ${id}.`);save();go('conf')},
+ver:a=>{S.sel=a;go('det')},askc:a=>{S.cid=a;render()},back:()=>{S.cid=null;render()},
+cancel:()=>{const t=S.turns.find(x=>x.id==S.cid);if(t)S.hist.unshift({n:t.n,c:t.id});S.turns=S.turns.filter(x=>x.id!=S.cid);pv(`Cancelaste tu turno ${S.cid}.`);S.cid=null;save();go('canc')},
+arr:a=>{pv(`Confirmaste tu llegada para el turno ${a}.`);toast('Llegada confirmada. Te avisaremos cuando sea tu turno')},
+out:()=>{S.user=null;S.verif=false;S.pin=null;save();go('bien')},
+clr:()=>{S.av=[];save();render()},
+wipe:()=>{localStorage.removeItem('ty5');S=D0();go('bien')},
+micro:()=>escuchar(),
+decir:a=>responder(a),
+colgar:()=>{if(reconocimiento){try{reconocimiento.stop()}catch(e){}}toast('Llamada finalizada');setTimeout(()=>go('home'),900)}
+};
+$a.addEventListener('click',e=>{const el=e.target.closest('[data-go],[data-act]');if(!el)return;if(el.dataset.go)go(el.dataset.go);else A[el.dataset.act]&&A[el.dataset.act](el.dataset.a)});
+$a.addEventListener('input',e=>{if(e.target.id=='q'){S.q=e.target.value;const p=e.target.selectionStart;render();const n=document.getElementById('q');n.focus();n.setSelectionRange(p,p)}if(e.target.id=='dni'||e.target.id=='cel')e.target.value=e.target.value.replace(/\D/g,'')});
+render();
+</script>
+</body>
+</html>
